@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Customer Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+if(!localStorage.getItem("currentCustomer")) location.href="index.html";
+</script>
+
+<header>Customer Dashboard</header>
+
+<main class="container">
+
+  <div class="card">
+    <h2>Welcome, <span id="cust-name"></span></h2>
+    <p><b>Balance:</b> $<span id="cust-balance"></span></p>
+    <p><b>Your Transfer Code:</b></p>
+    <code id="cust-code"></code>
+  </div>
+
+  <div class="card">
+    <h3>Transfer Money</h3>
+    <input id="transfer-to" placeholder="Recipient Username">
+    <input id="transfer-amount" type="number" placeholder="Amount">
+    <input id="transfer-code" placeholder="Recipient Transfer Code">
+    <button class="btn" onclick="customerTransfer()">Send</button>
+  </div>
+
+  <div class="card">
+    <h3>Transactions</h3>
+    <ul id="transactions"></ul>
+  </div>
+
+  <button class="btn danger" onclick="customerLogout()">Logout</button>
+
+</main>
+
+<button class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
+<script src="script.js"></script>
+<script>loadCustomerDashboard()</script>
+</body>
+</html>
