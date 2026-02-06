@@ -13,15 +13,26 @@
 
 <main class="container">
 
+  <!-- Customer Login/Register -->
   <div class="card">
     <h2>Customer Login / Register</h2>
     <input id="cust-username" placeholder="Username">
     <input id="cust-password" type="password" placeholder="Password">
+    <input id="cust-security" placeholder="Security Question Answer">
     <button class="btn" onclick="customerLogin()">Login</button>
     <button class="btn outline" onclick="customerRegister()">Register</button>
     <p id="cust-error" class="error"></p>
+    <button class="btn outline small" onclick="showReset()">Forgot Password?</button>
+
+    <div id="reset-container" style="display:none;margin-top:10px;">
+      <input id="reset-username" placeholder="Username">
+      <input id="reset-security" placeholder="Security Answer">
+      <input id="reset-password" placeholder="New Password">
+      <button class="btn" onclick="resetPassword()">Reset Password</button>
+    </div>
   </div>
 
+  <!-- Admin Login -->
   <div class="card">
     <h2>Admin Login</h2>
     <input id="admin-username" placeholder="Username">
