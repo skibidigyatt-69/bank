@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trusted Bank</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <h1>Trusted Bank</h1>
+    <nav>
+        <a href="#services">Services</a>
+        <a href="#security">Security</a>
+        <a href="#contact">Contact</a>
+        <a href="#login">Admin Login</a>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <h2>Your Trusted Financial Partner</h2>
+    <p>Secure banking, personalized services, and innovative financial solutions to help you achieve your goals.</p>
+    <button>Open an Account</button>
+</section>
+
+<!-- Services -->
+<section class="services" id="services">
+    <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f" alt="Checking Accounts">
+        <h3>Checking Accounts</h3>
+        <p>Convenient accounts with no monthly fees and easy access to your money anytime.</p>
+    </div>
+    <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1565373677928-90e963765eac" alt="Savings Accounts">
+        <h3>Savings Accounts</h3>
+        <p>Grow your wealth safely with competitive interest rates and flexible plans.</p>
+    </div>
+    <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1605902711622-cfb43c44367f" alt="Loans & Credit">
+        <h3>Loans & Credit</h3>
+        <p>Personalized loans and credit options to fund your dreams responsibly.</p>
+    </div>
+</section>
+
+<!-- Security Section -->
+<section class="security" id="security">
+    <img src="https://images.unsplash.com/photo-1591696205602-6f7f09a11c68" alt="Secure Banking">
+    <h3>Banking with Confidence</h3>
+    <p>Our advanced security measures ensure your finances are safe 24/7. Trust and transparency are at the heart of everything we do.</p>
+</section>
+
+<!-- Admin Login -->
+<section id="login" class="form-container">
+    <h2>Admin Login</h2>
+    <input type="text" id="admin-username" placeholder="Username">
+    <input type="password" id="admin-password" placeholder="Password">
+    <button onclick="adminLogin()">Login</button>
+    <p id="login-error" style="color:red; text-align:center; margin-top:10px;"></p>
+</section>
+
+<!-- Admin Dashboard -->
+<section id="admin-dashboard">
+    <h2>Admin Dashboard</h2>
+
+    <!-- Tabs -->
+    <div class="dashboard-tabs">
+        <button onclick="showTab('deposit-tab')">Deposit/Withdraw</button>
+        <button onclick="showTab('transfer-tab')">Transfer</button>
+        <button onclick="showTab('request-tab')">Request Money</button>
+        <button onclick="showTab('add-tab')">Add Account</button>
+    </div>
+
+    <!-- Deposit/Withdraw Tab -->
+    <div id="deposit-tab" class="dashboard-tab">
+        <p>Use the table below to deposit or withdraw from accounts.</p>
+    </div>
+
+    <!-- Transfer Tab -->
+    <div id="transfer-tab" class="dashboard-tab">
+        <form id="transfer-form" onsubmit="transferMoney(event)">
+            <select id="transfer-from" required></select>
+            <select id="transfer-to" required></select>
+            <input type="number" id="transfer-amount" placeholder="Amount" min="0" required>
+            <button type="submit">Transfer</button>
+        </form>
+    </div>
+
+    <!-- Request Money Tab -->
+    <div id="request-tab" class="dashboard-tab">
+        <form id="request-form" onsubmit="requestMoney(event)">
+            <select id="request-to" required></select>
+            <input type="number" id="request-amount" placeholder="Amount" min="0" required>
+            <button type="submit">Request</button>
+        </form>
+    </div>
+
+    <!-- Add Account Tab -->
+    <div id="add-tab" class="dashboard-tab">
+        <form id="add-account-form" onsubmit="addAccount(event)">
+            <input type="text" id="new-account-name" placeholder="Account Name" required>
+            <input type="number" id="new-account-balance" placeholder="Initial Balance" required min="0">
+            <button type="submit">Add Account</button>
+        </form>
+    </div>
+
+    <!-- Accounts Table (always visible) -->
+    <table>
+        <thead>
+            <tr>
+                <th>Account</th>
+                <th>Balance ($)</th>
+                <th>Deposit</th>
+                <th>Withdraw</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="account-table-body"></tbody>
+    </table>
+    <button onclick="logoutAdmin()" style="background:#ff4d4d;">Logout</button>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+    <p>Trusted Bank &copy; 2026</p>
+    <p>Email: support@trustedbank.com | Phone: +1 (800) 123-4567</p>
+    <p>123 Finance Street, Money City, USA</p>
+</footer>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+<script src="script.js"></script>
+</body>
+</html>
