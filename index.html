@@ -51,6 +51,42 @@
     <h3>Banking with Confidence</h3>
     <p>Our advanced security measures ensure your finances are safe 24/7. Trust and transparency are at the heart of everything we do.</p>
 </section>
+<!-- Customer Login/Register -->
+<section id="customer" class="form-container">
+    <h2>Customer Login/Register</h2>
+    <input type="text" id="cust-username" placeholder="Username">
+    <input type="password" id="cust-password" placeholder="Password">
+    <button onclick="customerLogin()">Login</button>
+    <button onclick="customerRegister()">Register</button>
+    <p id="cust-error" style="color:red; text-align:center; margin-top:10px;"></p>
+</section>
+
+<!-- Customer Dashboard -->
+<section id="customer-dashboard" style="display:none; max-width:600px; margin:50px auto; padding:20px; background:var(--card-bg); border-radius:10px;">
+    <h2>Welcome, <span id="cust-name"></span></h2>
+    <p>Balance: $<span id="cust-balance"></span></p>
+
+    <!-- Deposit/Withdraw -->
+    <div style="margin-bottom:20px;">
+        <input type="number" id="cust-deposit" placeholder="Deposit Amount">
+        <button onclick="custDeposit()">Deposit</button>
+        <input type="number" id="cust-withdraw" placeholder="Withdraw Amount">
+        <button onclick="custWithdraw()">Withdraw</button>
+    </div>
+
+    <!-- Transfer -->
+    <div style="margin-bottom:20px;">
+        <select id="cust-transfer-to"></select>
+        <input type="number" id="cust-transfer-amount" placeholder="Amount">
+        <button onclick="custTransfer()">Transfer</button>
+    </div>
+
+    <!-- Transaction History -->
+    <h3>Transaction History</h3>
+    <ul id="cust-transactions"></ul>
+
+    <button onclick="custLogout()" style="background:#ff4d4d;">Logout</button>
+</section>
 
 <!-- Admin Login -->
 <section id="login" class="form-container">
