@@ -14,3 +14,4 @@ input,button{padding:10px;border-radius:8px;border:1px solid #ccc;width:100%;mar
 table{width:100%;border-collapse:collapse}
 th,td{padding:10px;border-bottom:1px solid #ddd;text-align:center}
 code{background:#eee;padding:6px;border-radius:6px;display:block;text-align:center}
+.small{font-size:14px;padding:5px}
