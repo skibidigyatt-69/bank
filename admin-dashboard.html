@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Admin Dashboard</title>
@@ -19,6 +19,7 @@ if(!localStorage.getItem("currentAdmin")) location.href="index.html";
     <h3>Add Account</h3>
     <input id="new-name" placeholder="Username">
     <input id="new-balance" type="number" placeholder="Initial Balance">
+    <input id="new-security" placeholder="Security Answer">
     <button class="btn" onclick="addAccount()">Add</button>
   </div>
 
@@ -26,7 +27,7 @@ if(!localStorage.getItem("currentAdmin")) location.href="index.html";
     <h3>Accounts</h3>
     <table>
       <thead>
-        <tr><th>User</th><th>Balance</th><th>Code</th><th>Deposit</th><th>Withdraw</th></tr>
+        <tr><th>User</th><th>Balance</th><th>Code</th><th>Locked</th><th>Deposit</th><th>Withdraw</th></tr>
       </thead>
       <tbody id="admin-table"></tbody>
     </table>
@@ -41,3 +42,4 @@ if(!localStorage.getItem("currentAdmin")) location.href="index.html";
 <script>renderAdmin()</script>
 </body>
 </html>
+
