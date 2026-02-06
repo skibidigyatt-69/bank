@@ -138,3 +138,118 @@ function logoutAdmin(){
     document.getElementById('admin-dashboard').style.display='none';
     document.getElementById('login').style.display='block';
 }
+// Initialize customer accounts in localStorage if not exist
+if(!localStorage.getItem('customers')){
+    localStorage.setItem('customers', JSON.stringify([]));
+}
+
+// Customer Register
+function customerRegister(){
+    const username = document.getElementById('cust-username').value.trim();
+    const password = document.getElementById('cust-password').value.trim();
+    const error = document.getElementById('cust-error');
+    if(!username || !password){ error.textContent='Please fill both fields'; return; }
+
+    let customers = JSON.parse(localStorage.getItem('customers'));
+    if(customers.find(c => c.username===username)){ error.textContent='Username already exists'; return; }
+
+    customers.push({username, password, balance:0, transactions:[]});
+    localStorage.setItem('customers', JSON.stringify(customers));
+    error.textContent='Registered! You can now login';
+    document.getElementById('cust-username').value='';
+    document.getElementById('cust-password').value='';
+}
+
+// Customer Login
+function customerLogin(){
+    const username = document.getElementById('cust-username').value.trim();
+    const password = document.getElementById('cust-password').value.trim();
+    const error = document.getElementById('cust-error');
+    let customers = JSON.parse(localStorage.getItem('customers'));
+    const user = customers.find(c => c.username===username && c.password===password);
+    if(user){
+        document.getElementById('customer').style.display='none';
+        document.getElementById('customer-dashboard').style.display='block';
+        document.getElementById('cust-name').textContent=username;
+        localStorage.setItem('currentCustomer', username);
+        updateCustDashboard();
+    } else { error.textContent='Invalid username or password'; }
+}
+
+// Update Customer Dashboard
+function updateCustDashboard(){
+    let customers = JSON.parse(localStorage.getItem('customers'));
+    const current = localStorage.getItem('currentCustomer');
+    const user = customers.find(c => c.username===current);
+    if(!user) return;
+    document.getElementById('cust-balance').textContent=user.balance.toFixed(2);
+
+    // Populate transfer options
+    const select = document.getElementById('cust-transfer-to');
+    select.innerHTML='';
+    customers.filter(c=>c.username!==current).forEach(c=>{
+        select.innerHTML+=`<option value="${c.username}">${c.username}</option>`;
+    });
+
+    // Transaction history
+    const ul = document.getElementById('cust-transactions');
+    ul.innerHTML='';
+    user.transactions.slice().reverse().forEach(tx=>{
+        const li = document.createElement('li');
+        li.textContent=tx;
+        ul.appendChild(li);
+    });
+}
+
+// Deposit
+function custDeposit(){
+    const amount = parseFloat(document.getElementById('cust-deposit').value);
+    if(isNaN(amount) || amount<=0){ alert("Invalid amount"); return; }
+    let customers = JSON.parse(localStorage.getItem('customers'));
+    const current = localStorage.getItem('currentCustomer');
+    const user = customers.find(c=>c.username===current);
+    user.balance+=amount;
+    user.transactions.push(`Deposited $${amount.toFixed(2)}`);
+    localStorage.setItem('customers', JSON.stringify(customers));
+    document.getElementById('cust-deposit').value='';
+    updateCustDashboard();
+}
+
+// Withdraw
+function custWithdraw(){
+    const amount = parseFloat(document.getElementById('cust-withdraw').value);
+    let customers = JSON.parse(localStorage.getItem('customers'));
+    const current = localStorage.getItem('currentCustomer');
+    const user = customers.find(c=>c.username===current);
+    if(isNaN(amount) || amount<=0 || amount>user.balance){ alert("Invalid amount"); return; }
+    user.balance-=amount;
+    user.transactions.push(`Withdrew $${amount.toFixed(2)}`);
+    localStorage.setItem('customers', JSON.stringify(customers));
+    document.getElementById('cust-withdraw').value='';
+    updateCustDashboard();
+}
+
+// Transfer
+function custTransfer(){
+    const toUser = document.getElementById('cust-transfer-to').value;
+    const amount = parseFloat(document.getElementById('cust-transfer-amount').value);
+    let customers = JSON.parse(localStorage.getItem('customers'));
+    const current = localStorage.getItem('currentCustomer');
+    const sender = customers.find(c=>c.username===current);
+    const receiver = customers.find(c=>c.username===toUser);
+    if(!receiver || isNaN(amount) || amount<=0 || amount>sender.balance){ alert("Invalid transfer"); return; }
+    sender.balance-=amount;
+    receiver.balance+=amount;
+    sender.transactions.push(`Transferred $${amount.toFixed(2)} to ${toUser}`);
+    receiver.transactions.push(`Received $${amount.toFixed(2)} from ${current}`);
+    localStorage.setItem('customers', JSON.stringify(customers));
+    document.getElementById('cust-transfer-amount').value='';
+    updateCustDashboard();
+}
+
+// Logout
+function custLogout(){
+    localStorage.removeItem('currentCustomer');
+    document.getElementById('customer-dashboard').style.display='none';
+    document.getElementById('customer').style.display='block';
+}
